@@ -5,6 +5,7 @@ Les sources (démo, exercices, corrections) du module de formation API RESTful, 
 - [API RESTful, ORM et GraphQL](#api-restful-orm-et-graphql)
   - [Exercices et corrections](#exercices-et-corrections)
     - [Exercices sur la conception d'API](#exercices-sur-la-conception-dapi)
+  - [Démos](#démos)
   - [Kit de développement web API](#kit-de-développement-web-api)
   - [Références](#références)
     - [API RESTful, RFC utiles, Media-Types et sémantique des hypermédias](#api-restful-rfc-utiles-media-types-et-sémantique-des-hypermédias)
@@ -20,6 +21,10 @@ Les sources (démo, exercices, corrections) du module de formation API RESTful, 
 [Voir les corrections du module Dev API RESTful](https://github.com/paul-schuhm/web-api/blob/main/exercices/suggestions-exercices-web-api)
 
 - [Exercice 7 : Prise en main de cURL](https://github.com/paul-schuhm/web-api/blob/main/exercices/suggestions-exercices-web-api/exercice-7.md)
+
+## Démos
+
+- [Accéder aux démos sur la spécification OpenAPI](./demos/)
 
 ## Kit de développement web API
 
