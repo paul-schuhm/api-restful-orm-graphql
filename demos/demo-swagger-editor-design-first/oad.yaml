@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Démo Design-first du service web de billetterie de concerts
+  version: 0.0.1
+paths:
+  /:
+    summary: Accueil du service de billeterie
+    get:
+      summary: Obtenir les informations sur le service de billeterie
+      description: ''
+      operationId: 'rootGet'
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Home
+  /concerts:
+    summary: La liste des concerts à venir
+    get:
+      summary: Obtenir la liste des concerts à venir
+      description: ''
+      operationId: 'getAllConcerts'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/concerts'
+      tags:
+        - Concerts
+  /concerts/{id}:
+    summary: Le détail d'un concert
+    get:
+      summary: Obtenir le détail d'un concert
+      description: ''
+      operationId: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/concert-detail'
+          links:
+            allConcerts: 
+              $ref: '#/components/links/concertsLink'
+      tags:
+        - Concerts
+  /login:
+    summary: S'authentifier comme administrateur
+    post:
+      summary: S'authentifier comme administrateur du service
+      description: Seuls les administrateurs peuvent s'authentifier pour l'instant
+      operationId: 'loginPost'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                pseudo:
+                  type: string
+                  default: 'ed'
+                password:
+                  type: string
+                  default: 'astrongpassword'
+              required:
+               - pseudo
+               - password
+      responses:
+        "201":
+          description: "La réponse fournie un JWT valable un certain temps"
+          content:
+            application/json:
+              examples:
+                jwtEx:
+                  summary: "Un exemple de réponse contenant le jwt"
+                  value:
+                    jwt: "xx.yy.zz"
+        "401":
+          description: "Échec d'authentification"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+              examples:
+                exemple1:
+                  value: {"message": "Authentification impossible"}
+      tags:
+        - Administration
+servers:
+  - url: http://localhost:5001
+components:
+  links:
+    concertsLink:
+      operationId: 'getAllConcerts'
+  schemas:
+    halLinkObject:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri-template
+        type:
+          type: string
+        deprecation:
+          type: string
+        name:
+          type: string
+        templated:
+          type: boolean
+          default: false
+      required:
+        - href
+    concert-detail:
+      type: object
+      properties:
+        _links:
+          type: object
+          additionalProperties: 
+            $ref: "#/components/schemas/halLinkObject"
+        artist:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date
+    concerts:
+      type: object
+      properties:
+        _links:
+          type: object
+          additionalProperties: 
+            $ref: "#/components/schemas/halLinkObject"
+        concerts:
+          type: array
+          description: >
+            # Ressources concerts
+
+            Une longue description structurée en markdown sur le champ 'concerts
+            (ajouter contexte)'
+          items:
+            $ref: '#/components/schemas/concert-detail'
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
