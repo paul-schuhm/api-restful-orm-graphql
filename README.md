@@ -53,6 +53,10 @@ OpenAPI est une description standardisée d'API et un framework de développemen
 - [Les ORM (Object-Relational Mapping)](https://gayerie.dev/epsi-b3-orm/javaee_orm/intro.html), de David Gayerie, avec exemple dans l'écosystème Java;
 - [Sequelize](https://sequelize.org/)
 - [Sequelize v6](https://sequelize.org/docs/v6/)
+- [Anemic Domain Model](https://www.martinfowler.com/bliki/AnemicDomainModel.html), de Martin Fowler. Utiliser des objets "anémiques", débarrassés de tout comportement délégués à une couche *service* est un *anti-pattern*. En POO, un objet métier (du domaine) devrait contenir toute la logique métier placée sous sa responsabilité. Le problème avec les ORMs c'est que la couche persistance est "confondue" avec les objets métier. Soit on les découple (et on "brise" la POO), soit on les maintient (et on couple la logique de persistance avec la logique métier, ce qui n'est pas désirable). Il faut donc faire des compromis entre les deux (ou ne pas utiliser d'ORM !) ;
+- [Anemic Domain Model vs. Rich Domain Model](https://medium.com/@inzuael/anemic-domain-model-vs-rich-domain-model-78752b46098f), billet de Matthias Schenk, synthèse sur ce problème discuté dans l'ouvrage [Implementing Domain-Driven Design](https://www.oreilly.com/library/view/implementing-domain-driven-design/9780133039900/), d'Eric Evans;
+- [Adding behavior to Entities](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html#adding-behavior-to-entities), discussion dans la documentation de l'ORM Doctrine sur la différence entre les entités anémiques (*anemic entities*) et les entités riches (*rich entities*).
+- [Your Database Skills Are Not 'Good to Have' And a hateful ode to Object-Relational Mappers](https://renegadeotter.com/2023/11/12/your-database-skills-are-not-good-to-have.html), d'Andrei Taranchenko
 
 ### GraphQL
 
