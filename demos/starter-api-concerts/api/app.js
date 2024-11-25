@@ -3,8 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger_output.json')
 
 //Importer les routers
 
@@ -26,11 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routerConcerts);
 
-
-/**
- * Configuration Swagger, exposition de la doc sur la route /doc
- */
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
