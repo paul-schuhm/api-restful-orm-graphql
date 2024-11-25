@@ -1,15 +1,25 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+var { checkTokenMiddleware } = require("../jwt");
 
 //Implémenter la ressource protégée par authentification et autorisation
 
-router.get('/concerts/:id/reservations', (req, res, next) => {
+router.get(
+  "/concerts/:id/reservations",
+  checkTokenMiddleware,
+  (req, res, next) => {
+    const payload = res.locals.decodedToken;
 
-    //Vérifier si il y a un JWT ?
-    //Vérifier le token (valide)
     //Vérifier l'autorisation (admin)
+    if (!payload.isAdmin)
+      res
+        .send(401)
+        .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
 
-    res.status(200).send('a implementer');
-});
+    res
+      .status(200)
+      .send("Voici la liste des réservations du concert...A implementer");
+  }
+);
 
-module.exports = router
+module.exports = router;
