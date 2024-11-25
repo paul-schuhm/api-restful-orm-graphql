@@ -7,6 +7,8 @@ var logger = require('morgan');
 //Importer les routers
 
 const routerConcerts = require('./routes/concerts');
+const routerAuth = require('./routes/authentification');
+const routerReservations = require('./routes/reservations');
 
 var app = express();
 
@@ -22,8 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Enregistrement des routes
  */
 
-app.use(routerConcerts);
+app.use(routerConcerts, routerAuth, routerReservations);
 
+//Ajouter Allow-Cross-Origin-Ressource
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
