@@ -18,4 +18,16 @@ function createJWT(login, isAdmin) {
   );
 }
 
+//Fonction qui extrait le token du header
+
+function extractBearerToken(header) {
+  if (typeof header !== "string") return false;
+
+  const matches = header.match(/(bearer)\s+(\S+)/i)
+
+  return matches && matches[2];
+}
+
+//Middleware : authentification via jwt
+
 module.exports = { createJWT };
