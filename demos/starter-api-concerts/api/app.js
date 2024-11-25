@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config()
 
 //Importer les routers
 
@@ -23,6 +24,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Enregistrement des routes
  */
+
+//Enregistrement d'un middleware actif uniquement en env de dev
+//Si on veut autoriser une application web à lire la réponse,
+//il faut moduler la SOP avec une politique CORS plus permissive.
+//Autoriser les requêtes Cross Origin (CORS Policy)
+if (process.env && process.env.ENV == 'dev') {
+  app.use((req, res, next) => {
+    //En production, on n'autorisera pas l'accès aux autres sites web à notre API ainsi, sans aucune restriction
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    next();
+  })
+}
 
 app.use(routerConcerts, routerAuth, routerReservations);
 
