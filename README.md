@@ -24,7 +24,9 @@ Les sources (démo, exercices, corrections) du module de formation API RESTful, 
 
 ## Démos
 
-- [Accéder aux démos sur la spécification OpenAPI](./demos/)
+- [Accéder aux démos sur la spécification OpenAPI](./demos/openapi/)
+- [Accéder aux démos sur GraphQL](./demos/graphql/)
+- [Accéder au projet de service de billeterie (live, en l'état)](./demos/starter-api-concerts/)
 
 ## Kit de développement web API
 
@@ -67,4 +69,8 @@ OpenAPI est une description standardisée d'API et un framework de développemen
 
 - [GraphQL](https://graphql.org/), le site officiel
 - [Documentation officielle](https://graphql.org/learn/)
+- [Getting Started With GraphQL.js](https://graphql.org/graphql-js/), tutoriel basique issu de la documentation officielle. **Recommandé mais limité**
+- [The Fullstack Tutorial for GraphQL](https://www.howtographql.com/), du site howtographql. **Recommandé**
+- [Build your own GraphQL server](https://www.howtographql.com/graphql-js/1-getting-started/), du site howtographql, tutoriel avec Node.js. **Recommandé**
+- [GraphQL Server Basics: GraphQL Schemas, TypeDefs & Resolvers Explained](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e), bon article pour bien comprendre [**comment les résolveurs implémentent le schéma**](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api)
 
