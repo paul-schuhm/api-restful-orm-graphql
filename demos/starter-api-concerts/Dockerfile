@@ -6,7 +6,9 @@ RUN apt-get update && apt-get install -y default-mysql-client && rm -rf /var/lib
 
 COPY api/ .
 
-RUN npm install && npm run swagger-autogen
+# On fait du design first, on a plus besoin de générer la doc
+# RUN npm install && npm run swagger-autogen
+RUN npm install
 
 
 EXPOSE 3000
