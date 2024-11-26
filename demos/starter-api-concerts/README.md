@@ -19,6 +19,9 @@ npx sequelize-cli db:seed --seed 20241126083002-insert-users.js
 docker compose watch
 ~~~
 
+> Remarque: L'idéal ici serait d’exécuter `sequelize-cli` directement sur le conteneur Node pour harmoniser les variables d'environnement
+
+
 Tester
 
 ~~~bash
@@ -38,7 +41,6 @@ curl localhost:5001/concerts/1/reservations \
 -H"Authorization: Bearer <votre jwt>"
 ~~~
 
-> Remarque: L'idéal ici serait d’exécuter `sequelize-cli` directement sur le conteneur Node pour harmoniser les variables d'environnement
 
 ## Lancer Swagger Editor
 
