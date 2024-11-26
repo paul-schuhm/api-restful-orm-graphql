@@ -4,10 +4,15 @@ const path = require("path");
 
 //Paramètres JWT
 const expires = "1 day";
+
+//Remarque: dans un environment Docker, on utilisera les secrets
+//pour monter le secret sur le conteneur (et non les var d'env)
+//@See: https://docs.docker.com/compose/how-tos/use-secrets/
 const secret = fs.readFileSync(path.resolve(__dirname, "private.key"));
 
 function createJWT(login, isAdmin) {
   //La lib nous génère le token
+  //On définit notre payload
   return jwt.sign(
     {
       login,
@@ -41,17 +46,17 @@ function checkTokenMiddleware(req, res, next) {
       .send(401)
       .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
   }
-  //Vérifier le token (valide)
+  //Vérifier le token
   jwt.verify(token, secret, (err, decodedToken) => {
     if (err) {
       res
         .send(401)
         .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
     } else {
-      //Le jwt est vérifié !
-      //Attache le jwt décodé pour les middlewares suivant
+      //On utilise la propriété res.locals pour passer des valeurs entre fonctions middleware
+      //Voir https://expressjs.com/en/api.html#res.locals
       res.locals.decodedToken = decodedToken;
-      next();
+      return next(); //appeler la fonction middleware suivante (enregistrée dans le routeur)
     }
   });
 

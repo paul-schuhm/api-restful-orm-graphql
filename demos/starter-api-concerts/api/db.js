@@ -1,4 +1,27 @@
-//Les Modèles de données
+const { Sequelize } = require("sequelize");
+
+// Access environment variables
+const dbHost = process.env.DATABASE_HOST;
+const dbUser = process.env.DATABASE_USER;
+const dbPass = process.env.DATABASE_PASSWORD;
+const dbPort = process.env.DATABASE_PORT;
+
+const sequelize = new Sequelize("mydb", dbUser, dbPass, {
+  host: dbHost,
+  dialect: "mysql",
+  port: dbPort,
+});
+
+async function testConnexion() {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+}
+
+testConnexion();
 
 class Concert {
   constructor(id, artistName, date, location, description, nbSeats) {

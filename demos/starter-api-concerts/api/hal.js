@@ -6,43 +6,47 @@
 
 /**
  * Retourne un Link Object, conforme à la spécification HAL
- * @param {*} url 
- * @param {*} type 
- * @param {*} name 
- * @param {*} templated 
- * @param {*} deprecation 
- * @returns 
+ * @param {*} url
+ * @param {*} type
+ * @param {*} name
+ * @param {*} templated
+ * @param {*} deprecation
+ * @returns
  */
-function halLinkObject(url, type = '', name = '', templated = false, deprecation = false) {
-
-    return {
-        "href": url,
-        "templated": templated,
-        ...(type && { "type": type }),
-        ...(name && { "name": name }),
-        ...(deprecation && { "deprecation": deprecation })
-    }
+function halLinkObject(
+  url,
+  type = "",
+  name = "",
+  templated = false,
+  deprecation = false
+) {
+  return {
+    href: url,
+    templated: templated,
+    ...(type && { type: type }),
+    ...(name && { name: name }),
+    ...(deprecation && { deprecation: deprecation }),
+  };
 }
 
 function mapConcertListToResourceObject(concerts) {
+  //Préparer les concerts "embarqués" comme ressource
+  //par la ressource "La liste des concerts à venir"
 
-    //Préparer les concerts "embarqués" comme ressource
-    //par la ressource "La liste des concerts à venir"
+  const embedded = concerts.map((concert) =>
+    mapConcertToResourceObject(concert)
+  );
 
-    const embedded = concerts.map(concert => mapConcertToResourceObject(concert))
+  //La liste des concerts à venir
+  return {
+    _links: {
+      self: halLinkObject("/concerts"),
+    },
 
-    //La liste des concerts à venir
-    return {
-
-        "_links": {
-            "self": halLinkObject('/concerts')
-        },
-
-        "_embedded": {
-            "concerts": embedded
-        }
-    }
-
+    _embedded: {
+      concerts: embedded,
+    },
+  };
 }
 
 /**
@@ -51,19 +55,34 @@ function mapConcertListToResourceObject(concerts) {
  * @returns un Ressource Object Concert (spec HAL)
  */
 function mapConcertToResourceObject(concertData) {
-    return {
-        "_links": {
-            "self": halLinkObject(`/concerts/${concertData.id}`),
-            "concerts": halLinkObject('/concerts'),
-            'book': halLinkObject(`/concerts/${concertData.id}/reservations`)
-        },
-        //Données du concert:
-        artist: concertData.artistName,
-        location: concertData.location,
-        description: concertData.description,
-        date: concertData.date,
-    }
+  return {
+    _links: {
+      self: halLinkObject(`/concerts/${concertData.id}`),
+      concerts: halLinkObject("/concerts"),
+      book: halLinkObject(`/concerts/${concertData.id}/reservations`),
+    },
+    //Données du concert:
+    artist: concertData.artistName,
+    location: concertData.location,
+    description: concertData.description,
+    date: concertData.date,
+  };
 }
 
+function mapRootToResourceObject() {
+  return {
+    _links: {
+      self: halLinkObject(`/`),
+      concerts: halLinkObject("/concerts"),
+    },
+    description: "Bienvenue sur le service de billetterie",
+    version: "1"
+  };
+}
 
-module.exports = { halLinkObject, mapConcertToResourceObject, mapConcertListToResourceObject };
+module.exports = {
+  halLinkObject,
+  mapConcertToResourceObject,
+  mapConcertListToResourceObject,
+  mapRootToResourceObject
+};
