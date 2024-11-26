@@ -1,28 +1,19 @@
-const { Sequelize } = require("sequelize");
-
-// Access environment variables
-const dbHost = process.env.DATABASE_HOST;
-const dbName = process.env.DATABASE_NAME;
-const dbUser = process.env.DATABASE_USER;
-const dbPass = process.env.DATABASE_PASSWORD;
-const dbPort = process.env.DATABASE_PORT;
-
-const sequelize = new Sequelize(dbName, dbUser, dbPass, {
-  host: dbHost,
-  dialect: "mysql",
-  port: dbPort,
-});
+const db  = require("./models/index");
 
 async function testConnexion() {
   try {
-    await sequelize.authenticate();
+    await db.sequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 }
 
-testConnexion();
+// testConnexion();
+
+/**
+ * Modèle de concert et records mockés à déplacer en base. Laissé en exercice.
+ */
 
 class Concert {
   constructor(id, artistName, date, location, description, nbSeats) {
@@ -34,8 +25,6 @@ class Concert {
     this.nbSeats = nbSeats;
   }
 }
-
-//La base de données mockée
 
 const concerts = [
   new Concert(
@@ -56,20 +45,5 @@ const concerts = [
   ),
 ];
 
-/**
- * Simulation d'une base de données utilisateur
- */
-const users = [
-  {
-    login: "ed",
-    password: "astrongpassword",
-    role: "admin",
-  },
-  {
-    login: "john",
-    password: "",
-    role: "visitor",
-  },
-];
 
-module.exports = { concerts, users };
+module.exports = { concerts };
