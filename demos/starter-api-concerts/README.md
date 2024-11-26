@@ -1,16 +1,21 @@
 # Démo - Conception et implémentation du service de billeterie (wip)
 
-Pour l'instant le projet n'a implémenté que les routes `/concerts` et `/concerts/id`.
+> Pour l'instant le projet n'a implémenté que les ressources "La liste des concerts à venir" et "Le détail d'un concert".
 
 ## Lancer le projet
 
 ~~~bash
+#Créer votre fichier d'environnement local
+cp .env.dist .env
+#Générer la clef
+node gensecretkey.js
+#Lancer les services
 docker compose watch
 ~~~
 
 ## Lancer Swagger Editor
 
-Pour le design de l'API, utiliser Swagger Editor
+Pour le design et le test de l'API, utiliser Swagger Editor
 
 ~~~bash
 docker run -d \
