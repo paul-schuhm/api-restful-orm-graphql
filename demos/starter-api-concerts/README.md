@@ -13,9 +13,13 @@ node gensecretkey.js
 npx sequelize-cli db:create
 #Initialiser le schéma et les privilèges
 npx sequelize-cli db:migrate
+#Initialiser les données en base
+npx sequelize-cli db:seed --seed 20241126083002-insert-users.js
 #Lancer les services
 docker compose watch
 ~~~
+
+> Remarque: L'idéal ici serait d’exécuter `sequelize-cli` directement sur le conteneur Node pour harmoniser les variables d'environnement
 
 ## Lancer Swagger Editor
 
