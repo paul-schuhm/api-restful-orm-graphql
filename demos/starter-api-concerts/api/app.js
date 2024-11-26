@@ -4,7 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var hal = require("./hal");
-require("dotenv").config();
 
 //Importer les routers
 
@@ -72,5 +71,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send("Error");
 });
+
 
 module.exports = app;

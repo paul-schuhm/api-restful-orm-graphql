@@ -10,11 +10,12 @@ router.get(
   (req, res, next) => {
     const payload = res.locals.decodedToken;
 
+    console.log(payload)
+
     //Vérifier l'autorisation (admin)
     if (!payload.isAdmin)
-      res
-        .send(401)
-        .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
+      return res
+        .sendStatus(401)
 
     res
       .status(200)

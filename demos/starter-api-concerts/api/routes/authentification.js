@@ -18,9 +18,8 @@ router.post("/login", async (req, res, next) => {
     return res.status(400).json({ msg: "Impossible de vous authentifier" });
   }
 
-  //Authentifié
-  //Fabriquer et délivrer un jwt
-  const jwt = createJWT(user.login, user.role === "admin");
+  //Authentifié, signer et délivrer un jwt
+  const jwt = createJWT(user.login, user.isAdmin);
 
   //Retourne le jwt au client
   res.status(201).json({

@@ -43,24 +43,20 @@ function checkTokenMiddleware(req, res, next) {
     req.headers.authorization && extractBearerToken(req.headers.authorization);
   if (!token) {
     return res
-      .send(401)
-      .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
+      .sendStatus(401)
   }
   //Vérifier le token
   jwt.verify(token, secret, (err, decodedToken) => {
     if (err) {
-      res
-        .send(401)
-        .json({ msg: "Vous n'êtes pas autorisé à accéder à cette ressource" });
+      return res
+        .sendStatus(401)
     } else {
       //On utilise la propriété res.locals pour passer des valeurs entre fonctions middleware
       //Voir https://expressjs.com/en/api.html#res.locals
       res.locals.decodedToken = decodedToken;
-      return next(); //appeler la fonction middleware suivante (enregistrée dans le routeur)
+      next(); //appeler la fonction middleware suivante (enregistrée dans le routeur)
     }
   });
-
-  return;
 }
 
 module.exports = { createJWT, checkTokenMiddleware };
