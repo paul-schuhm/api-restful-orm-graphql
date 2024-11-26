@@ -2,11 +2,12 @@ const { Sequelize } = require("sequelize");
 
 // Access environment variables
 const dbHost = process.env.DATABASE_HOST;
+const dbName = process.env.DATABASE_NAME;
 const dbUser = process.env.DATABASE_USER;
 const dbPass = process.env.DATABASE_PASSWORD;
 const dbPort = process.env.DATABASE_PORT;
 
-const sequelize = new Sequelize("mydb", dbUser, dbPass, {
+const sequelize = new Sequelize(dbName, dbUser, dbPass, {
   host: dbHost,
   dialect: "mysql",
   port: dbPort,

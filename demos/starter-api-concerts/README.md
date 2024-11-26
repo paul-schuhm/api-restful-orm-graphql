@@ -9,6 +9,10 @@
 cp .env.dist .env
 #Générer la clef
 node gensecretkey.js
+#Créer la base de données
+npx sequelize-cli db:create
+#Initialiser le schéma et les privilèges
+npx sequelize-cli db:migrate
 #Lancer les services
 docker compose watch
 ~~~
