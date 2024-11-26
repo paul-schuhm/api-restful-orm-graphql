@@ -1,4 +1,4 @@
-#Environnement de dev
+#Environnement de dev (Tip: Créer un fichier compose par environnement avec le mécanisme de merge. @See https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/
 services:
   #web API (app node)
   api:
