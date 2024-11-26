@@ -1,24 +1,20 @@
 const express = require("express");
-const db = require("../db");
+const db = require("../models/index");
 const { createJWT } = require("../jwt");
 
 const router = express.Router();
 
-router.post("/login", (req, res, next) => {
-  //Est ce qu'il y a les credentials ?
+router.post("/login", async (req, res, next) => {
 
+  //Est ce qu'il y a les credentials demandés?
   if (!req.body.pseudo || !req.body.password) {
     return res.status(400).json({ msg: "Impossible de vous authentifier" });
   }
 
-  //Identification (login)
-  //Authentification (password)
-  const user = db.users.find(
-    (user) =>
-      user.login === req.body.pseudo && user.password === req.body.password
-  );
+  //Remarque: En conditions réelles on "hasherait" les mdp et comparerait les hash. Laissé en exercice.
+  const user = await db.User.findOne({ where: { pseudo: req.body.pseudo, password: req.body.password } });
 
-  if (user === undefined) {
+  if (user === null) {
     return res.status(400).json({ msg: "Impossible de vous authentifier" });
   }
 

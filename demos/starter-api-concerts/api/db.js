@@ -9,7 +9,7 @@ async function testConnexion() {
   }
 }
 
-// testConnexion();
+testConnexion();
 
 /**
  * Modèle de concert et records mockés à déplacer en base. Laissé en exercice.
